@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+    server:
+        build: ./server/spe_ed/server
+        command: ./server -stats -pseudonymfile /data/pseudonyms -keyfile /data/keys -wait 24h -address 0.0.0.0:10101
+        volumes:
+            - ./data/server:/data
+        ports:
+            - "10101:10101"
+    lehnurr:
+        restart: unless-stopped
+        build: 
+            context: ./lehnurr
+            dockerfile: .docker/Dockerfile
+        environment:
+            - KEY=lehnurr
+            - URL=ws://server:10101/spe_ed
+            - TIME_URL=http://server:10101/spe_ed_time
+        depends_on:
+            - server
+    jumpstart:
+        restart: unless-stopped
+        build: ./jumpstart
+        environment:
+            - KEY=jumpstart
+            - URL=ws://server:10101/spe_ed
+            - TIME_URL=http://server:10101/spe_ed_time
+        depends_on:
+            - server
+    brot:
+        restart: unless-stopped
+        build: ./brot
+        command: ./client -guihostname 0.0.0.0
+        volumes:
+            - ./data/brot_log:/go/src/app/log
+        ports:
+            - "10102:8081"
+        environment:
+            - KEY=brot
+            - URL=ws://server:10101/spe_ed
+            - TIME_URL=http://server:10101/spe_ed_time
+        depends_on:
+            - server
+    speedos:
+        restart: unless-stopped
+        build: ./speedos
+        environment:
+            - KEY=speedos
+            - URL=ws://server:10101/spe_ed
+            - TIME_URL=http://server:10101/spe_ed_time
+        depends_on:
+            - server
+    chillow:
+        restart: unless-stopped
+        build: ./chillow
+        environment:
+            - KEY=chillow
+            - URL=ws://server:10101/spe_ed
+            - TIME_URL=http://server:10101/spe_ed_time
+        depends_on:
+            - server
+
