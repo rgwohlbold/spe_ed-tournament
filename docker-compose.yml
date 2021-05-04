@@ -2,12 +2,12 @@ version: "3"
 
 services:
     server:
-        build: ./server/spe_ed/server
-        command: ./server -stats -pseudonymfile /data/pseudonyms -keyfile /data/keys -wait 24h -address 0.0.0.0:10101
+        build: ./server
+        command: ./server -p 5
         volumes:
             - ./data/server:/data
         ports:
-            - "10101:10101"
+            - "8080:8080"
     lehnurr:
         restart: unless-stopped
         build: 
@@ -15,8 +15,8 @@ services:
             dockerfile: .docker/Dockerfile
         environment:
             - KEY=lehnurr
-            - URL=ws://server:10101/spe_ed
-            - TIME_URL=http://server:10101/spe_ed_time
+            - URL=ws://server:8080/spe_ed
+            - TIME_URL=http://server:8080/spe_ed_time
         depends_on:
             - server
     jumpstart:
@@ -24,8 +24,8 @@ services:
         build: ./jumpstart
         environment:
             - KEY=jumpstart
-            - URL=ws://server:10101/spe_ed
-            - TIME_URL=http://server:10101/spe_ed_time
+            - URL=ws://server:8080/spe_ed
+            - TIME_URL=http://server:8080/spe_ed_time
         depends_on:
             - server
     brot:
@@ -34,12 +34,10 @@ services:
         command: ./client -guihostname 0.0.0.0
         volumes:
             - ./data/brot_log:/go/src/app/log
-        ports:
-            - "10102:8081"
         environment:
             - KEY=brot
-            - URL=ws://server:10101/spe_ed
-            - TIME_URL=http://server:10101/spe_ed_time
+            - URL=ws://server:8080/spe_ed
+            - TIME_URL=http://server:8080/spe_ed_time
         depends_on:
             - server
     speedos:
@@ -47,8 +45,8 @@ services:
         build: ./speedos
         environment:
             - KEY=speedos
-            - URL=ws://server:10101/spe_ed
-            - TIME_URL=http://server:10101/spe_ed_time
+            - URL=ws://server:8080/spe_ed
+            - TIME_URL=http://server:8080spe_ed_time
         depends_on:
             - server
     chillow:
@@ -56,8 +54,8 @@ services:
         build: ./chillow
         environment:
             - KEY=chillow
-            - URL=ws://server:10101/spe_ed
-            - TIME_URL=http://server:10101/spe_ed_time
+            - URL=ws://server:8080/spe_ed
+            - TIME_URL=http://server:8080/spe_ed_time
         depends_on:
             - server
 
