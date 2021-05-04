@@ -11,7 +11,7 @@ This repository contains everything you need to run a spe_ed tournament between 
 ## TODO
 
 - [X] Add key file to player in server
-- [ ] Show key in GUI
+- [X] Show key in GUI
 - [ ] Add JSON output to server
 - [ ] Visualize games
 
