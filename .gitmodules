@@ -4,3 +4,15 @@
 [submodule "jumpstart"]
 	path = jumpstart
 	url = git@github.com:TeamJumpstart/InformatiCup2021.git
+[submodule "lehnurr"]
+	path = lehnurr
+	url = git@github.com:Lehnurr/spe-ed-solver.git
+[submodule "brot"]
+	path = brot
+	url = git@github.com:TeamBrot/client.git
+[submodule "speedos"]
+	path = speedos
+	url = git@github.com:jubra97/speedos.git
+[submodule "chillow"]
+	path = chillow
+	url = git@github.com:jonashellmann/informaticup21-team-chillow.git

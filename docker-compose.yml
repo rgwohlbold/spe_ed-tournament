@@ -4,8 +4,6 @@ services:
     server:
         build: ./server
         command: ./server -p 5
-        volumes:
-            - ./data/server:/data
         ports:
             - "8080:8080"
     lehnurr:
@@ -32,8 +30,6 @@ services:
         restart: unless-stopped
         build: ./brot
         command: ./client -guihostname 0.0.0.0
-        volumes:
-            - ./data/brot_log:/go/src/app/log
         environment:
             - KEY=brot
             - URL=ws://server:8080/spe_ed
