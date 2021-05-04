@@ -42,7 +42,7 @@ services:
         environment:
             - KEY=speedos
             - URL=ws://server:8080/spe_ed
-            - TIME_URL=http://server:8080spe_ed_time
+            - TIME_URL=http://server:8080/spe_ed_time
         depends_on:
             - server
     chillow:
