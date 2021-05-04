@@ -1,3 +1,6 @@
 [submodule "server"]
 	path = server
 	url = git@github.com:TeamBrot/server.git
+[submodule "jumpstart"]
+	path = jumpstart
+	url = git@github.com:TeamJumpstart/InformatiCup2021.git
